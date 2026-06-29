@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programcının kütüphanesi</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+    <header class="header">
+        <img src="../static/img/logo.svg" alt="logo" width="30" height="30">
+        <ul class="main-list">
+            <li class="list__item">
+              <a href="/logout" class="logout-link">Çıkış Yap</a>
+            </li>
+        </ul>
+      </header>
+      <main>
+        {% block content %}
+        <form action="{{ url_for('form_create') }}" method="post" class="creat-form">
+            <div class="form__card">
+                <img class="card__img" src="../static/img/post_icon.png" width="250" height="250" alt="post_icon">
+                <div class="form__inputs">
+                    <label for="title">
+                        <input class="form__input" type="text" name="title" id="title" placeholder="Kayıt başlığını yazın" required>
+                    </label>
+                    <label for="subtitle">
+                        <input class="form__input" type="text" name="subtitle" id="subtitle" placeholder="Alt başlığını yazın" required>
+                    </label>
+                </div>
+                <label for="text">
+                    <textarea class="form__text" name="text" id="text" cols="30" rows="10" required placeholder="Biraz metin yazın..."></textarea>
+                </label>
+                <button class="form__button">Oluştur</button>
+            </div>
+        </form>
+        {% endblock %}
+      </main>
+      <footer>
+
+      </footer>
+      
+      <style>
+        .logout-link {
+          color: #F8FAFC;
+          padding: 8px 16px;
+          border: 1px solid rgba(16, 185, 129, 1);
+          border-radius: 6px;
+          transition: 0.2s;
+        }
+
+        .logout-link:hover {
+          background: rgba(16, 185, 129, 1);
+        }
+      </style>
+</body>
+</html>

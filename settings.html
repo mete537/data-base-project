@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayarlar - Programcının Günlüğü</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+    <header class="header">
+        <img src="../static/img/logo.svg" alt="logo" width="30" height="30">
+        <ul class="main-list">
+            <li class="list__item">
+                <div class="user-menu">
+                    <button class="user-menu__btn">⚙️ Ayarlar</button>
+                    <div class="user-menu__dropdown">
+                        <a href="/index" class="user-menu__link">Kayıtlara Dön</a>
+                        <a href="/settings" class="user-menu__link user-menu__link--active">Özelleştirme</a>
+                        <a href="/logout" class="user-menu__link">Çıkış Yap</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </header>
+    <main class="main">
+        <h1 class="main__title">Özelleştirme Ayarları</h1>
+        
+        {% if message %}
+        <div class="success-message">{{ message }}</div>
+        {% endif %}
+        
+        <div class="settings-container">
+            <form method="POST" class="settings-form">
+                <div class="settings-section">
+                    <h2 class="settings-title">Tema</h2>
+                    <div class="settings-group">
+                        <label class="radio-label">
+                            <input type="radio" name="theme" value="dark" {% if user.theme == 'dark' %}checked{% endif %}>
+                            <span>Koyu Tema</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="theme" value="light" {% if user.theme == 'light' %}checked{% endif %}>
+                            <span>Açık Tema</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h2 class="settings-title">Bildirimler</h2>
+                    <div class="settings-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="notifications" {% if user.notifications %}checked{% endif %}>
+                            <span>Bildirimleri Etkinleştir</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="form__button settings-button">Ayarları Kaydet</button>
+            </form>
+
+            <div class="settings-info">
+                <h3>Hesap Bilgileri</h3>
+                <p><strong>E-posta:</strong> {{ user.email }}</p>
+            </div>
+        </div>
+    </main>
+    <footer></footer>
+    
+    <style>
+        .settings-container {
+            max-width: 600px;
+            margin: 30px auto;
+        }
+
+        .settings-form {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .settings-section {
+            margin-bottom: 30px;
+        }
+
+        .settings-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #F8FAFC;
+        }
+
+        .settings-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .radio-label,
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+
+        .radio-label:hover,
+        .checkbox-label:hover {
+            background: rgba(51, 65, 85, 0.3);
+        }
+
+        .radio-label input,
+        .checkbox-label input {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+        }
+
+        .settings-button {
+            width: 100%;
+            padding: 12px;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .settings-button:hover {
+            background: #059669;
+        }
+
+        .settings-info {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .settings-info h3 {
+            margin-bottom: 15px;
+            color: #F8FAFC;
+        }
+
+        .settings-info p {
+            margin: 10px 0;
+            color: #cbd5e1;
+        }
+
+        .success-message {
+            background: #10b981;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-menu__btn {
+            background: none;
+            border: none;
+            color: #F8FAFC;
+            cursor: pointer;
+            font-size: 20px;
+            padding: 8px;
+        }
+
+        .user-menu__dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            min-width: 180px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        .user-menu:hover .user-menu__dropdown {
+            display: block;
+        }
+
+        .user-menu__link {
+            display: block;
+            padding: 12px 16px;
+            color: #F8FAFC;
+            text-decoration: none;
+            border-bottom: 1px solid #334155;
+            transition: 0.2s;
+        }
+
+        .user-menu__link:last-child {
+            border-bottom: none;
+        }
+
+        .user-menu__link:hover {
+            background: #334155;
+        }
+
+        .user-menu__link--active {
+            background: #10b981;
+        }
+    </style>
+</body>
+</html>
